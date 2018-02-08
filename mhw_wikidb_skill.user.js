@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MH:World Skill Sim Translate
 // @namespace
-// @version      0.1
+// @version      0.1.1
 // @description  Replace japanese MH:World strings with English
 // @author       MHVuze
 // @match        http://mhw.wiki-db.com/sim/
@@ -265,8 +265,8 @@ function SortSkillListContainer() {
 	with(btn_translateResults) { setAttribute("id", "btn_translateResults"); setAttribute("onclick", "console.log('Hi')"); innerHTML = "Translate Results"; }
 	with(btn_translateExtras) { setAttribute("id", "btn_translateExtras"); setAttribute("onclick", "console.log('Hi')"); innerHTML = "Translate Extra Skills"; }
 	
-	div_buttons.appendChild(btn_translateResults);
-	div_buttons.appendChild(btn_translateExtras);
+	//div_buttons.appendChild(btn_translateResults);
+	//div_buttons.appendChild(btn_translateExtras);
 	skilllistcontainer.appendChild(div_buttons);
 	skilllistcontainer.appendChild(div_results);
 	
