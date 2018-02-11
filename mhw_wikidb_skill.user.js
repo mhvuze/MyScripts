@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MH:World Skill Sim Translate
 // @namespace
-// @version      0.1.2
+// @version      0.2
 // @description  Replace japanese MH:World strings with English
 // @author       MHVuze
 // @match        http://mhw.wiki-db.com/sim/
@@ -217,16 +217,24 @@ function TranslateInterface() {
 // Translate skill list container
 // TODO: Translate level strings
 function TranslateSkillListContainer() {
+	var rgx = /Lv\d/;
 	skillitems = document.getElementsByClassName("skillitem");
-
 	for (var i = 0; i < skillitems.length; i++) {
-		string = skillitems[i].childNodes[0].textContent;
-		for (key in replacements) {
-			if (key == string) {
-				string = string.replace(regex[key], replacements[key]);
+		childs = skillitems[i].childNodes;
+		for (var j = 0; j < childs.length; j++) {
+			string = childs[j].textContent;
+			for (key in replacements) {
+				if (key == string) {
+					string = string.replace(regex[key], replacements[key]);
+				} else if (string.includes(key) && string.includes(rgx.exec(string))) {
+					splitters = string.split("Lv");
+					if (key == splitters[0]) {
+						string = string.replace(regex[key], replacements[key] + " ");
+					}
+				}
 			}
+			childs[j].textContent = string;
 		}
-		skillitems[i].childNodes[0].textContent = string;
 	}
 }
 
