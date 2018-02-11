@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MH:World Skill Sim Translate
 // @namespace
-// @version      0.2
+// @version      0.3
 // @description  Replace japanese MH:World strings with English
 // @author       MHVuze
 // @match        http://mhw.wiki-db.com/sim/
@@ -159,7 +159,7 @@ replacements = {
 	"剛刃研磨" : "Protective Polish",
 	"火竜の奥義" : "Rathalos Mastery",
 	"心眼／弾道強化" : "Mind\'s Eye/Ballistics",
-	"心眼／弾導強化" : "Mind\'s Eye/Ballistics",	// Alt
+	"心眼／弾導強化" : "Mind\'s Eye/Ballistics",	// Alt?
 	"角竜の奥義" : "Diablos Mastery",
 	"無属性強化" : "Non-elemental Boost",
 	"爆鎚竜の守護" : "Uragaan Protection",
@@ -181,8 +181,76 @@ replacements = {
 	"剥ぎ取り名人" : "Carving Celebrity?",
 };
 
+replacements_armor = {
+	// Basics
+	"ヘルム" : " Helm ",
+	"ヘッド" : " Headgear ",
+	"テスタ" : " Vertex ",
+	"ゴーグル" : " Goggles ",
+	"ロポス" : " Lobos ",
+	"ベスト" : " Vest ",
+	"メイル" : " Mail ",
+	"グラブ" : " Gloves ",
+	"アーム" : " Vambraces ",
+	"ガード" : " Guards ",
+	"ベルト" : " Belt ",
+	"コイル" : " Coil ",
+	"パンツ" : " Trousers ",
+	"グリーヴ" : " Greaves ",
+	"の護石" : " Charm ",
+	// Material
+	"レザー" : "Leather",
+	"チェーン" : "Chainmail",
+	"ハンター" : "Hunter",
+	"ボーン" : "Bone",
+	"ランゴ" : "Vespoid",
+	"ガライー" : "Gajau",
+	"ジャグラス" : "Jagras",
+	"クルル" : "Kulu",
+	"アロイ" : "Alloy",
+	"プケプケ" : "Pukei",
+	"ボロス" : "Barroth",
+	"ジュラ" : "Jyura",
+	"カガチ" : "Kadachi",
+	"ハイメタ" : "High Metal",
+	"オウビート" : "King Beetle",
+	"パピメル" : "Butterfly",
+	"シャム" : "Shamos",
+	"タロス" : "Hornetaur",
+	"ジャナフ" : "Anja",
+	"レイア" : "Rathian",
+	"ツィツィ" : "Tzitzi",
+	"ウルムー" : "Lumu",
+	"ギルオス" : "Girros",
+	"バルキン" : "Baan",
+	"インゴット" : "Ingot",
+	"デスギア" : "Death Stench",
+	"ブリゲイド" : "Brigade",
+	"ギエナ" : "Legiana",
+	"ガロン" : "Odogaron",
+	"レウス" : "Rathalos",
+	"ディアブロ" : "Diablos",
+	"キリン" : "Kirin",
+	"リオハート" : "Rathian Heart",
+	"ラヴァ" : "Lavasioth",
+	"リオソウル" : "Rath Soul",
+	"ディアネロ" : "Diablos Nero",
+	"ガンキン" : "Uragaan",
+	"ドーベル" : "Dober",
+	"カイザー" : "Kaiser",
+	"クシャナ" : "Kushala",
+	"ゼノラージ" : "Xeno\'jiiva",
+	"オーグ" : "Nergigante",
+	"ゾラマグナ" : "Zorah",
+	// Rest
+	"スロット" : " Slots",
+	"なし" : "No Equipment",
+};
+
 regex = {};
 for (key in replacements) { regex[key] = new RegExp(key, 'g'); }
+regex_armor = {};
+for (key in replacements_armor) { regex_armor[key] = new RegExp(key, 'g'); }
 
 // Translate interface
 function TranslateInterface() {
@@ -215,7 +283,6 @@ function TranslateInterface() {
 }
 
 // Translate skill list container
-// TODO: Translate level strings
 function TranslateSkillListContainer() {
 	var rgx = /Lv\d/;
 	skillitems = document.getElementsByClassName("skillitem");
@@ -270,17 +337,72 @@ function SortSkillListContainer() {
 	}
 	
 	// Add extra buttons and remaining stuff
+	// TODO: Fix the button styles
 	btn_translateResults = document.createElement("button");
 	btn_translateExtras = document.createElement("button");
-	with(btn_translateResults) { setAttribute("id", "btn_translateResults"); setAttribute("onclick", "console.log('Hi')"); innerHTML = "Translate Results"; }
-	with(btn_translateExtras) { setAttribute("id", "btn_translateExtras"); setAttribute("onclick", "console.log('Hi')"); innerHTML = "Translate Extra Skills"; }
+	with(btn_translateResults) { setAttribute("id", "btn_translateResults"); innerHTML = "Translate Results"; }
+	with(btn_translateExtras) { setAttribute("id", "btn_translateExtras"); innerHTML = "Translate Extra Skills"; }
 	
-	//div_buttons.appendChild(btn_translateResults);
+	div_buttons.appendChild(btn_translateResults);
 	//div_buttons.appendChild(btn_translateExtras);
 	skilllistcontainer.appendChild(div_buttons);
 	skilllistcontainer.appendChild(div_results);
 	
 	document.getElementById("searchpane").replaceChild(skilllistcontainer, document.getElementById("skilllistcontainer"));
+	document.getElementById("btn_translateResults").addEventListener ("click", TranslateResults, false);
+}
+
+// Translate results table
+function TranslateResults() {
+	//table = document.getElementsByClassName("table table-hover")[0];
+	//resultitems = document.getElementsByClassName("resultitem resultitemoverview");
+	
+	// Translate rows in table overview
+	equipmentitems = document.getElementsByClassName("equipmentitem");
+	for (var i = 0; i < equipmentitems.length; i++) {
+		string = equipmentitems[i].textContent;
+		equipmentitems[i].textContent = TranslateEquipNames(string);
+	}
+	
+	// Translate equip table in detail view
+	equiptables = document.getElementsByClassName("saved-result-element table table-striped");
+	for (var i = 0; i < equiptables.length; i++) {
+		columns = equiptables[i].getElementsByTagName("td");
+		for (var j = 2; j < columns.length; j++) {
+			string = columns[j].textContent;
+			columns[j].textContent = TranslateEquipNames(string);
+			j += 3;
+		}
+		string = columns[columns.length - 1].textContent;
+		columns[columns.length - 1].textContent = TranslateEquipNames(string);
+	}
+	
+	// Translate skill table in detail view
+	skilltables = document.getElementsByClassName("table table-striped");		// TODO: Exclude elemental res tables, doesn't really matter for now though
+	for (var i = 0; i < skilltables.length; i++) {
+		columns = skilltables[i].getElementsByTagName("td");
+		for (var j = 0; j < columns.length; j++) {
+			string = columns[j].textContent;
+			columns[j].textContent = TranslateSkillNames(string);
+			j += 9;
+		}
+	}
+}
+
+// Translate equipment names
+function TranslateEquipNames(string) {
+	for (key in replacements_armor) {
+		string = string.replace(regex_armor[key], replacements_armor[key]);
+	}
+	return string;
+}
+
+// Translate skill names
+function TranslateSkillNames(string) {
+	for (key in replacements) {
+		string = string.replace(regex[key], replacements[key]).replace("スロット", "Slots");
+	}
+	return string;
 }
 
 TranslateInterface();
