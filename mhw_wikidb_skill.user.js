@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MH:World Skill Sim Translate
 // @namespace
-// @version      0.1.1
+// @version      0.1.2
 // @description  Replace japanese MH:World strings with English
 // @author       MHVuze
 // @match        http://mhw.wiki-db.com/sim/
@@ -115,6 +115,7 @@ replacements = {
 	"導蟲反応距離UP" : "Scoutfly Range Up",
 	"導蟲反応距離ＵＰ" : "Scoutfly Range Up",		// Alt
 	"スリンガー装填数UP" : "Slinger Capacity",
+	"スリンガー装填数ＵＰ" : "Slinger Capacity",		// Alt
 	"整備" : "Tool Specialist",
 	"閃光強化" : "Blindsider",
 	"潜伏" : "Stealth",
@@ -158,6 +159,7 @@ replacements = {
 	"剛刃研磨" : "Protective Polish",
 	"火竜の奥義" : "Rathalos Mastery",
 	"心眼／弾道強化" : "Mind\'s Eye/Ballistics",
+	"心眼／弾導強化" : "Mind\'s Eye/Ballistics",	// Alt
 	"角竜の奥義" : "Diablos Mastery",
 	"無属性強化" : "Non-elemental Boost",
 	"爆鎚竜の守護" : "Uragaan Protection",
