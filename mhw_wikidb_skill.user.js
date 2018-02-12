@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MH:World Skill Sim Translate
 // @namespace
-// @version      0.3
+// @version      0.4
 // @description  Replace japanese MH:World strings with English
 // @author       MHVuze
 // @match        http://mhw.wiki-db.com/sim/
@@ -179,6 +179,12 @@ replacements = {
 	"幻獣の恩寵" : "Kirin Favor",
 	"調査団の導き" : "Investigation Guidance?",
 	"剥ぎ取り名人" : "Carving Celebrity?",
+	"ギルドの導き" : "Guild Guidance?",
+	"龍封力強化" : "Dragon Seal Boost?",
+	"毒ビン追加" : "Poison Coating?",
+	"爆撃ビン追加" : "Blast Coating?",
+	"麻痺ビン追加" : "Paralysis Coating?",
+	"睡眠ビン追加" : "Sleep Coating?",
 };
 
 replacements_armor = {
@@ -190,13 +196,16 @@ replacements_armor = {
 	"ロポス" : " Lobos ",
 	"ベスト" : " Vest ",
 	"メイル" : " Mail ",
+	"ハイド" : " Hide ",
 	"グラブ" : " Gloves ",
 	"アーム" : " Vambraces ",
 	"ガード" : " Guards ",
 	"ベルト" : " Belt ",
 	"コイル" : " Coil ",
+	"スパイン" : " Spine ",
 	"パンツ" : " Trousers ",
 	"グリーヴ" : " Greaves ",
+	"フット" : " Spurs ",
 	"の護石" : " Charm ",
 	// Material
 	"レザー" : "Leather",
@@ -242,6 +251,7 @@ replacements_armor = {
 	"ゼノラージ" : "Xeno\'jiiva",
 	"オーグ" : "Nergigante",
 	"ゾラマグナ" : "Zorah",
+	"ギルド" : "Guild",
 	// Rest
 	"スロット" : " Slots",
 	"なし" : "No Equipment",
@@ -305,7 +315,7 @@ function TranslateSkillListContainer() {
 	}
 }
 
-// Sort skil list container alphabetically
+// Sort skill list container alphabetically
 function SortSkillListContainer() {
 	// Sort array alphabetically
 	array = [];
@@ -344,12 +354,13 @@ function SortSkillListContainer() {
 	with(btn_translateExtras) { setAttribute("id", "btn_translateExtras"); innerHTML = "Translate Extra Skills"; }
 	
 	div_buttons.appendChild(btn_translateResults);
-	//div_buttons.appendChild(btn_translateExtras);
+	div_buttons.appendChild(btn_translateExtras);
 	skilllistcontainer.appendChild(div_buttons);
 	skilllistcontainer.appendChild(div_results);
 	
 	document.getElementById("searchpane").replaceChild(skilllistcontainer, document.getElementById("skilllistcontainer"));
 	document.getElementById("btn_translateResults").addEventListener ("click", TranslateResults, false);
+	document.getElementById("btn_translateExtras").addEventListener ("click", TranslateExtras, false);
 }
 
 // Translate results table
@@ -369,8 +380,12 @@ function TranslateResults() {
 	for (var i = 0; i < equiptables.length; i++) {
 		columns = equiptables[i].getElementsByTagName("td");
 		for (var j = 2; j < columns.length; j++) {
-			string = columns[j].textContent;
-			columns[j].textContent = TranslateEquipNames(string);
+			string = columns[j].childNodes[0].text;
+			
+			// Handle charm
+			if (string == null) { string = columns[j].textContent; columns[j].textContent = TranslateEquipNames(string); }
+			else { columns[j].childNodes[0].text = TranslateEquipNames(string); }
+			
 			j += 3;
 		}
 		string = columns[columns.length - 1].textContent;
@@ -378,6 +393,7 @@ function TranslateResults() {
 	}
 	
 	// Translate skill table in detail view
+	// TODO: Fix skill links, should go hand in hand with res table
 	skilltables = document.getElementsByClassName("table table-striped");		// TODO: Exclude elemental res tables, doesn't really matter for now though
 	for (var i = 0; i < skilltables.length; i++) {
 		columns = skilltables[i].getElementsByTagName("td");
@@ -386,6 +402,22 @@ function TranslateResults() {
 			columns[j].textContent = TranslateSkillNames(string);
 			j += 9;
 		}
+	}
+}
+
+// Translate extra skills
+function TranslateExtras() {
+	extraskillrows = document.getElementsByClassName("extraskillrow");
+	for (var i = 0; i < extraskillrows.length; i++) {
+		string = extraskillrows[i].childNodes[0].text;
+		for (key in replacements) {
+			splitters = string.split("Lv");
+			if (key == splitters[0]) {
+				string = string.replace(regex[key], replacements[key] + " ");
+			}
+		}
+		extraskillrows[i].childNodes[0].text = string;
+		extraskillrows[i].childNodes[0].setAttribute("onclick", "return onExtraSkillClick('" + string + "')");
 	}
 }
 
