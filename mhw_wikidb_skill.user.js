@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MH:World Skill Sim Translate
 // @namespace
-// @version      0.4
+// @version      0.5
 // @description  Replace japanese MH:World strings with English
 // @author       MHVuze
 // @match        http://mhw.wiki-db.com/sim/
@@ -188,6 +188,95 @@ replacements = {
 };
 
 replacements_armor = {
+	// Decos
+	// TODO: These definitely need double checking, also wikidb is missing some for now I think
+	"耐毒珠【１】" : "Antidote Jewel 1",
+	"耐麻珠【１】" : "Antipara Jewel 1",
+	"耐眠珠【１】" : "Pep Jewel 1",
+	"耐絶珠【１】" : "Steadfast Jewel 1",
+	"耐爆珠【１】" : "Antiblast Jewel 1",
+	"耐裂珠【１】" : "Suture Jewel 1",
+	"耐防珠【１】" : "Def Lock Jewel 1",
+	"防音珠【３】" : "Earplug Jewel 3",
+	"防風珠【２】" : "Wind Resist Jewel 2",
+	"耐震珠【２】" : "Footing Jewel 2",
+	"耐瘴珠【１】" : "Heat Resist Jewel 2",
+	"攻撃珠【１】" : "Attack Jewel 1",
+	"防御珠【１】" : "Defense Jewel 1",
+	"体力珠【１】" : "Vitality Jewel 1",
+	"早復珠【１】" : "Recovery Jewel 1",
+	"耐火珠【１】" : "Fire Res Jewel 1",
+	"耐水珠【１】" : "Water Res Jewel 1",
+	"耐氷珠【１】" : "Ice Res Jewel 1",
+	"耐雷珠【１】" : "Thunder Res Jewel 1",
+	"耐龍珠【１】" : "Dragon Res Jewel 1",
+	"耐属珠【１】" : "Resistor Jewel 1",
+	"火炎珠【１】" : "Blaze Jewel 1",
+	"流水珠【１】" : "Stream Jewel 1",
+	"氷結珠【１】" : "Frost Jewel 1",
+	"雷光珠【１】" : "Bolt Jewel 1",
+	"破龍珠【１】" : "Dragon Jewel 1",
+	"毒珠【１】" : "Venom Jewel 1",
+	"麻痺珠【１】" : "Paralyzer Jewel 1",
+	"睡眠珠【１】" : "Sleep Jewel 1",
+	"爆破珠【１】" : "Blast Jewel 1",
+	"毒瓶珠【３】" : "Poisoncoat Jewel 3",
+	"痺瓶珠【３】" : "Paracoat Jewel 3",
+	"眠瓶珠【３】" : "Sleepcoat Jewel 3",
+	"爆瓶珠【３】" : "Blastcoat Jewel 3",
+	"解放珠【３】" : "Release Jewel 3",
+	"達人珠【１】" : "Expert Jewel 1",
+	"痛撃珠【２】" : "Tenderizer Jewel 2",
+	"短縮珠【２】" : "Charger Jewel 2",
+	"匠珠【３】" : "Handicraft Jewel 3",
+	"重撃珠【２】" : "Destroyer Jewel 2",
+	"ＫＯ珠【２】" : "KO Jewel 2",
+	"飛燕珠【２】" : "Flight Jewel 2",
+	"全開珠【２】" : "Throttle Jewel 2",
+	"挑戦珠【２】" : "Challenger Jewel 2",
+	"無傷珠【２】" : "Flawless Jewel 2",
+	"底力珠【２】" : "Potential Jewel 2",
+	"逆境珠【１】" : "Fortitude Jewel 1",
+	"逆上珠【２】" : "Furor Jewel 2",
+	"鼓笛珠【１】" : "Sonorous Jewel 1",
+	"特射珠【１】" : "Trueshot Jewel 1",
+	"砲術珠【１】" : "Artillery Jewel 1",
+	"砲手珠【１】" : "Heavy Artillery Jewel 1",
+	"強走珠【２】" : "Sprinter Jewel 2",
+	"体術珠【２】" : "Physique Jewel 2",
+	"節食珠【１】" : "Hungerless Jewel 1",
+	"回避珠【２】" : "Evasion Jewel 2",
+	"跳躍珠【２】" : "Jumping Jewel 2",
+	"鉄壁珠【１】" : "Ironwall Jewel 1",
+	"友愛珠【１】" : "Friendship Jewel 1",
+	"無食珠【１】" : "Satiated Jewel 1",
+	"早食珠【１】" : "Gobbler Jewel 1",
+	"研磨珠【１】" : "Grinder Jewel 1",
+	"爆師珠【１】" : "Bomber Jewel 1",
+	"茸好珠【１】" : "Fungiform Jewel 1",
+	"采配珠【１】" : "Gathering Jewel 1",
+	"植学珠【１】" : "Botany Jewel 1",
+	"地学珠【１】" : "Geology Jewel 1",
+	"渾身珠【２】" : "Mighty Jewel 2",
+	"投石珠【１】" : "Stonethrower Jewel 1",
+	"耐衝珠【３】" : "Brace Jewel 3",
+	"煙復珠【１】" : "Smoke Jewel 1",
+	"標本珠【１】" : "Specimen Jewel 1",
+	"嗅覚珠【１】" : "Scent Jewel 1",
+	"威嚇珠【１】" : "Intimidator Jewel 1",
+	"沼渡珠【１】" : "Mudshield Jewel 1",
+	"滑走珠【２】" : "Slider Jewel 2",
+	"治癒珠【１】" : "Medicine Jewel 1",
+	"強弾珠【３】" : "Forceshot Jewel 3",
+	"貫通珠【３】" : "Pierce Jewel 3",
+	"散弾珠【３】" : "Spread Jewel 3",
+	"龍封珠【３】" : "Dragonseal Jewel 3",
+	"心眼珠【２】" : "Discovery Jewel 2",
+	"強弓珠【２】" : "Mighty Bow Jewel 2",
+	"強壁珠【２】" : "Shield Jewel 2",
+	"無撃珠【２】" : "Elementless Jewel 2",
+	// Special Names
+	"竜王の隻眼" : "Dragonking Eyepatch ",
 	// Basics
 	"ヘルム" : " Helm ",
 	"ヘッド" : " Headgear ",
@@ -196,8 +285,10 @@ replacements_armor = {
 	"ロポス" : " Lobos ",
 	"ベスト" : " Vest ",
 	"メイル" : " Mail ",
+	"スーツ" : " Suit ",
 	"ハイド" : " Hide ",
 	"グラブ" : " Gloves ",
+	"クロウ" : " Claws ",
 	"アーム" : " Vambraces ",
 	"ガード" : " Guards ",
 	"ベルト" : " Belt ",
@@ -205,6 +296,7 @@ replacements_armor = {
 	"スパイン" : " Spine ",
 	"パンツ" : " Trousers ",
 	"グリーヴ" : " Greaves ",
+	"レガース" : " Leg Guards ",
 	"フット" : " Spurs ",
 	"の護石" : " Charm ",
 	// Material
@@ -252,6 +344,8 @@ replacements_armor = {
 	"オーグ" : "Nergigante",
 	"ゾラマグナ" : "Zorah",
 	"ギルド" : "Guild",
+	"ダマスク" : "Damascus",
+	"バゼル" : "Bazel",
 	// Rest
 	"スロット" : " Slots",
 	"なし" : "No Equipment",
@@ -432,7 +526,11 @@ function TranslateEquipNames(string) {
 // Translate skill names
 function TranslateSkillNames(string) {
 	for (key in replacements) {
-		string = string.replace(regex[key], replacements[key]).replace("スロット", "Slots");
+		if (key == string) { 
+			string = string.replace(regex[key], replacements[key]);
+		} else if (string == "スロット") {
+			string = "Slots";
+		}
 	}
 	return string;
 }
