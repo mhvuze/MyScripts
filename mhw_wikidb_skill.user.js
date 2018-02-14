@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MH:World Skill Sim Translate
 // @namespace
-// @version      0.5
+// @version      0.6
 // @description  Replace japanese MH:World strings with English
 // @author       MHVuze
 // @match        http://mhw.wiki-db.com/sim/
@@ -185,11 +185,15 @@ replacements = {
 	"爆撃ビン追加" : "Blast Coating?",
 	"麻痺ビン追加" : "Paralysis Coating?",
 	"睡眠ビン追加" : "Sleep Coating?",
+	"爆破ビン追加" : "Blast Coating?",
 };
 
 replacements_armor = {
 	// Decos
 	// TODO: These definitely need double checking, also wikidb is missing some for now I think
+	"加護珠【１】" : "Protection Jewel 1",
+	"速納珠【１】" : "Sheath Jewel 1",
+	"抜刀珠【２】" : "Draw Jewel 2",
 	"耐毒珠【１】" : "Antidote Jewel 1",
 	"耐麻珠【１】" : "Antipara Jewel 1",
 	"耐眠珠【１】" : "Pep Jewel 1",
@@ -369,7 +373,6 @@ function TranslateInterface() {
 	// Search filters
 	document.getElementById("sex").childNodes[0].textContent = "Male";
 	document.getElementById("sex").childNodes[1].textContent = "Female";
-	document.getElementById("period-gathering").parentNode.childNodes[0].textContent = "Progress ";
 	document.getElementById("mindef").parentNode.childNodes[0].textContent = "Min Def ";
 	document.getElementById("minres_fire").parentNode.childNodes[0].textContent = "Fire Def ";
 	document.getElementById("minres_water").parentNode.childNodes[0].textContent = "Water Def ";
@@ -513,6 +516,15 @@ function TranslateExtras() {
 		extraskillrows[i].childNodes[0].text = string;
 		extraskillrows[i].childNodes[0].setAttribute("onclick", "return onExtraSkillClick('" + string + "')");
 	}
+}
+
+// Modify My Set pane
+function ModifyMySetPane() {
+	pane = document.getElementById("mysetpane");
+	btn_translateSets = document.createElement("button");
+	with(btn_translateSets) { setAttribute("id", "btn_translateSets"); innerHTML = "Translate Sets"; }
+	pane.appendChild(btn_translateSets);
+	document.getElementById("btn_translateSets").addEventListener ("click", TranslateResults, false);
 }
 
 // Translate equipment names
